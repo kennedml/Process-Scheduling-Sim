@@ -4,6 +4,8 @@
 #include "mfqs_table.h"
 #include "rts_table.h"
 #include "whs_table.h"
+#include <queue>
+#include <vector>
 
 class Proc_Handler
 {
@@ -22,8 +24,6 @@ class Proc_Handler
         // Create MQFS table
         MFQS_Table table;
 
-        int num_procs = table.get_num_procs();
-        cout << "Number of processes: " << cout << num_procs << endl;
         // Get info needed for processes
         cout << endl << "1) Use a file" << endl;
         cout << "2) Enter information manually" << endl;
@@ -38,7 +38,69 @@ class Proc_Handler
         }
         else if(input == 2)
         {
-          cout << endl << "Doin it the old fashioned way" << endl << endl;
+            int in_num_procs;
+            int in_num_queue = -1;
+            int in_starting_tq;
+            int in_aging_interval;
+            
+            cout << "Enter the number of processes you would like to add: ";
+            cin >> in_num_procs;
+            table.set_num_procs(in_num_procs);
+            
+            while(in_num_queue <= 0 || in_num_queue > 5)
+            {
+                cout << "Enter the number of queues you would like to use (max=5): ";
+                cin >> in_num_queue;
+                if(in_num_queue <= 0 || in_num_queue > 5)
+                {
+                    cout << "Error: Invalid Range. Valid entries range from 1-5" << endl;
+                }
+                else
+                {
+                    table.set_num_queues(in_num_queue);
+                }
+            }
+            cout << "Enter the desired time quantum: ";
+            cin >> in_starting_tq;
+            table.set_start_tq(in_starting_tq);
+
+            cout << "Enter the desired aging interval: ";
+            cin >> in_aging_interval;
+            table.set_aging_interval(in_aging_interval);
+           
+            // Create Table queues
+            //priority_queue<MFQS_Proc, vector<MFQS_Proc>, table.MFQS_Compare> *queue;
+            table.create_queues();
+
+
+            cout << "===========================================================" << endl;
+            cout << "                     Process Entry" << endl;
+
+            cout << "===========================================================" << endl;
+            int in_pid;
+            int in_burst;
+            int in_arrival;
+            int in_priority;
+
+            for(int i = 0; i < table.get_num_procs(); i++)
+            {
+                cout << "************* Process " << i << " **************" << endl;
+                cout << "    Enter PID: ";
+                cin >> in_pid;
+                cout << "    Enter burst: ";
+                cin >> in_burst;
+                cout << "    Enter arrival: ";
+                cin >> in_arrival;
+                cout << "    Enter priority: ";
+                cin >> in_priority;
+                
+                MFQS_Proc proc(in_pid, in_burst, in_arrival, in_priority);
+                
+                
+                //table.enqueue_proc(proc);
+                cout << "pid: " << in_pid << "   burst: " << in_burst <<
+                    "   arrival: " << in_arrival << "   priority: " << in_priority << endl;
+            }
         }
         else
         {

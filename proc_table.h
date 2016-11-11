@@ -15,14 +15,11 @@ class Proc_Table
     }
     ~Proc_Table(){}
 
-    int get_num_procs()
-    {
-      cout << "Num procs in parent function: " << num_procs << endl;
-      return num_procs;
-    }
-
+    int get_num_procs(){ return num_procs; }
+    void set_num_procs(int n){ num_procs = n; }
     void increment_procs(){ num_procs++; }
     void decrement_procs(){ num_procs--; }
+
 };
 
 #endif
