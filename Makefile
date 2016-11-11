@@ -13,7 +13,7 @@ $(EXECUTABLE): $(OBJECTS)
 %.o: %.cpp Makefile
 	$(CPP) $(CFLAGS) -c -o $@ $<
 
-%.o: %.cpp %.hpp Makefile
+%.o: %.cpp %.h Makefile
 	$(CPP) $(CFLAGS) -c -o $@ $<
 
 clean:
