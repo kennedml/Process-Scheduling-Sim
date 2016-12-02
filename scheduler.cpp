@@ -15,7 +15,7 @@ int main()
     
     while(1)
     {
-        get_user_input();
+      handler.run();
         // Check to make sure its a valid menu selection
         // TODO define upper and lower menu bounds
         /*
