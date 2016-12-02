@@ -8,4 +8,6 @@
 
 using namespace std; 
 
+void get_user_input();
+
 #endif

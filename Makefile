@@ -1,7 +1,7 @@
 CPP=g++
 CFLAGS=-g -Wall
 LDFLAGS=
-SOURCES=scheduler.cpp
+SOURCES=scheduler.cpp proc_handler.cpp utilities.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=scheduler
 

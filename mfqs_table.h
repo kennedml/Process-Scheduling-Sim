@@ -23,7 +23,7 @@ class MFQS_Table : public Proc_Table
     int num_queues;
     int start_tq;
     int aging_interval;
-    std::priority_queue<MFQS_Proc, vector<MFQS_Proc>, MFQS_Compare> queues[5];
+  
   public:
     MFQS_Table()
     {
@@ -61,17 +61,6 @@ class MFQS_Table : public Proc_Table
 
     //std::priority_queue<MFQS_Proc, vector<MFQS_Proc>, MFQS_Compare> create_queues()
     //std::priority_queue create_queue(const int size)
-    void create_queues()
-    {
-        for(int i = 0; i < num_queues; i++)
-        {
-            std::priority_queue<MFQS_Proc, vector<MFQS_Proc>, MFQS_Compare> queue;
-            queues[i] = queue;
-            queue.push(19);
-        }
-            //MFQS_Proc process(pid, burst, arrival, priority);
-      //MFQS_Proc *processes = new MFQS_Proc[size];
-    }
 
     void enqueue_proc(MFQS_Proc *processes)
     {

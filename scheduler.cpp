@@ -5,19 +5,6 @@
 #define WHS                 3
 #define EXIT_PROGRAM        4
 
-int print_menu()
-{
-    cout << "1) MFQS(Multi-level Feedback Queue Scheduler" << endl;
-    cout << "2) RTS(Real-Time Scheduler" << endl;
-    cout << "3) WHS(Windows Hybrid Scheduler" << endl;
-    cout << "4) Exit Program" << endl;
-    cout << endl << "Choose your algorithm: ";
-    
-    int input;
-    scanf("%d", &input);
-    return input; 
-
-}
 
 int main()
 { 
@@ -28,9 +15,10 @@ int main()
     
     while(1)
     {
-        rc = print_menu();
+        get_user_input();
         // Check to make sure its a valid menu selection
         // TODO define upper and lower menu bounds
+        /*
         if(rc <= 0 || rc > 4)
         {
             cout << endl << "Invalid menu choice. Please enter a valid menu number" << endl << endl;
@@ -42,7 +30,7 @@ int main()
             handler.run(rc);
         }
     }
-    
+    */
     // Determine algorithm type 
     
 
@@ -55,4 +43,5 @@ int main()
     cout << "return is: " << ret << endl; 
     */
     return 0;
+    }
 }
