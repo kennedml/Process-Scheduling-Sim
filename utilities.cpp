@@ -15,17 +15,24 @@ void get_user_input(int& table_type, int& pid, int& burst, int& arrival, int& pr
   //Manual or File
   switch(table_type){
     case 1:
-      //MFQS
-      cout << "MFQS" << endl;
-      break;
+    {  
+        //MFQS
+        MFQS_Table table;
+        cout << "MFQS" << endl;
+        break;
+    }
     case 2:
-      //RTS
-      cout << "RTS" << endl;
-      break;
+    {
+        //RTS
+        cout << "RTS" << endl;
+        break;
+    }
     case 3:
-      //WHS
-      cout << "WHS" << endl;
-      break;
+    {
+        //WHS
+        cout << "WHS" << endl;
+        break;
+    }
   }
 }
 

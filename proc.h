@@ -3,6 +3,8 @@
 
 #include "utilities.h"
 
+using namespace std;
+
 class Proc
 {
   protected:
