@@ -1,9 +1,9 @@
 #include "utilities.h"
 
-void get_user_input(int& table_type, int& pid, int& burst, int& arrival, int& priority, int& io, int& deadline)
+int get_table_type()
 {
   
-  int num_queues;
+  int table_type;
     
   cout << "1) MFQS(Multi-level Feedback Queue Scheduler" << endl;
   cout << "2) RTS(Real-Time Scheduler" << endl;
@@ -11,11 +11,16 @@ void get_user_input(int& table_type, int& pid, int& burst, int& arrival, int& pr
   cout << "4) Exit Program" << endl;
   cout << endl << "Choose your algorithm: ";
 
+  
   scanf("%d", &table_type);
 
+  return table_type;
+
+  /*
   if(table_type == 4)
     exit(0);
   //Manual or File
+  
   switch(table_type){
     case 1:
     {  
@@ -40,6 +45,7 @@ void get_user_input(int& table_type, int& pid, int& burst, int& arrival, int& pr
     case 4:
         exit(0);
   }
+  */
 }
 
 

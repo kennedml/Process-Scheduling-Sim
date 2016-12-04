@@ -10,7 +10,7 @@
 using namespace std; 
 
 
-void get_user_input(int& table_type, int& pid, int& burst, int& arrival, int& priority, int& io, int& deadline);
+int get_table_type();
 bool from_file();
 
 #endif
