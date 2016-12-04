@@ -5,15 +5,19 @@
 
 class MFQS_Proc : public Proc
 {
-
+  
+  protected:
+      int queue_level;
+  
   public:
-    MFQS_Proc(int in_pid = 0, int in_burst = 0, int in_arrival = 0, int in_priority = 0, int queue = 0) //, int in_cost = 0 ) 
+    MFQS_Proc(int in_pid = 0, int in_burst = 0, int in_arrival = 0, int in_priority = 0) //, int in_cost = 0 ) 
       : Proc(in_pid, in_burst, in_arrival, in_priority) //cost(in_cost)
     {
       pid = in_pid;
       burst = in_burst;
       arrival = in_arrival;
       priority = in_priority;
+      queue_level = 0;
     }
     ~MFQS_Proc(){}
 
@@ -43,8 +47,10 @@ class MFQS_Proc : public Proc
     int get_burst() const{ return burst; }
     int get_arrival() const{ return arrival; }
     int get_priority() const{ return priority; }
-
-    void set_burst(int n){ burst = n; }
+    int get_queue_level() const{ return queue_level; } 
+    
+    
+    void set_burst(int n){ burst = n; } 
 
     void print_attributes();
 };

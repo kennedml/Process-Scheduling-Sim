@@ -5,8 +5,15 @@ void MFQS_Table::print_attributes()
     cout << endl << "Num Queues:     " << num_queues << endl;
     cout << "Num Processes:  " << num_procs << endl;
     cout << "Starting TQ:    " << time_quantum << endl;
-    cout << "Aging interval: " << aging_interval << endl << endl;
+    cout << "Aging interval: " << aging_interval << endl;
 }
+
+/*
+void MFQS_Table::demote_process()
+{
+
+}
+*/
 
 void MFQS_Table::init()
 {
@@ -18,7 +25,6 @@ void MFQS_Table::init()
         queue<MFQS_Proc> procs;
         queues[i] = procs;
     }
-
 
     // Get info needed for processes
     cout << endl << "1) Use a file" << endl;
@@ -43,7 +49,7 @@ void MFQS_Table::init()
         cout << "Enter the desired aging interval: " << endl;
         cin >> aging_interval;
 
-        int pid, burst, arrival, priority;
+        int pid, burst, arrival, priority, queue_level;
         
         priority_queue<MFQS_Proc, vector<MFQS_Proc>, MFQS_Proc::MFQS_Compare> queue;
         
@@ -62,21 +68,12 @@ void MFQS_Table::init()
 
             MFQS_Proc proc(pid, burst, arrival, priority);
             queue.push(proc);
-            /*
-	    queue.push(toast1);
-	    queue.push(toast2);
-	    queue.push(toast3);
-	    queue.push(toast4);
-            
-            queues[0].push(proc);
-            */
         }
 
         while (!queue.empty())
 	{
 		MFQS_Proc p = queue.top();
 		p.print_attributes();
-                //cout << "bread " << t.bread << " butter " << t.butter << std::endl;
 		queue.pop();
 	}
 
@@ -87,34 +84,5 @@ void MFQS_Table::init()
         exit(0);
         // TODO send user back to start of init
     }
-
-    /*    
-        int in_num_procs;
-        int in_num_queue = -1;
-        int in_starting_tq;
-        int in_aging_interval;
-
-        cout << "Enter the number of processes you would like to add: ";
-        cin >> in_num_procs;
-        //table.set_num_procs(in_num_procs);
-        if(in_num_queue <= 0 || in_num_queue > 5)
-        {
-            cout << "Error: Invalid Range. Valid entries range from 1-5" << endl;
-        }
-    else
-    {
-        //table.set_num_queues(in_num_queue);
-    }
-  }
-  cout << "Enter the desired time quantum: ";
-  cin >> in_starting_tq;
-  table.set_start_tq(in_starting_tq);
-
-  cout << "Enter the desired aging interval: ";
-  cin >> in_aging_interval;
-  table.set_aging_interval(in_aging_interval);
-    
-    */
-
 }
 
