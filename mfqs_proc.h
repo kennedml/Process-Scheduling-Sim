@@ -15,6 +15,15 @@ class MFQS_Proc : public Proc
       priority = in_priority;
     }
     ~MFQS_Proc(){}
+
+    int get_pid(){ return pid; }
+    int get_burst(){ return burst; }
+    int get_arrival(){ return arrival; }
+    int get_priority(){ return priority; }
+
+    void set_burst(int n){ burst = n; }
+
+    void print_attributes();
 };
 
 #endif

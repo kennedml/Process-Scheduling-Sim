@@ -4,9 +4,6 @@ void Proc_Handler::run(){
   int table_type = 0, pid = 0, burst = 0, arrival = 0, priority = 0, io = 0, deadline = 0;
 
   get_user_input(table_type, pid, burst, arrival, priority, io, deadline);
-  cout << "From Proc Handler" << endl;
-  cout << "Table Type: " << table_type << " PID: " << pid << " BURST: " << burst << " ARRIVAL: " << arrival << " PRIORITY: " << priority << " IO: " << io  << " DEADLINE: " << deadline << endl;
-
   /*
 
      if(table_type == 1)

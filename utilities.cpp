@@ -2,6 +2,9 @@
 
 void get_user_input(int& table_type, int& pid, int& burst, int& arrival, int& priority, int& io, int& deadline)
 {
+  
+  int num_queues;
+    
   cout << "1) MFQS(Multi-level Feedback Queue Scheduler" << endl;
   cout << "2) RTS(Real-Time Scheduler" << endl;
   cout << "3) WHS(Windows Hybrid Scheduler" << endl;
@@ -16,9 +19,10 @@ void get_user_input(int& table_type, int& pid, int& burst, int& arrival, int& pr
   switch(table_type){
     case 1:
     {  
-        //MFQS
-        MFQS_Table table;
-        cout << "MFQS" << endl;
+        cout << "Enter number of queues from 1-5" << endl;
+        scanf("%d", &num_queues);
+        MFQS_Table table(num_queues);
+        table.init();
         break;
     }
     case 2:
@@ -33,6 +37,8 @@ void get_user_input(int& table_type, int& pid, int& burst, int& arrival, int& pr
         cout << "WHS" << endl;
         break;
     }
+    case 4:
+        exit(0);
   }
 }
 
