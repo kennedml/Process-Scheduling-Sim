@@ -45,6 +45,8 @@ void MFQS_Table::init()
 
         int pid, burst, arrival, priority;
         
+        priority_queue<MFQS_Proc, vector<MFQS_Proc>, MFQS_Proc::MFQS_Compare> queue;
+        
         cout << "NUM PROC: " << num_procs << endl;
         for(int i = 0; i < num_procs; i++)
         {
@@ -59,8 +61,24 @@ void MFQS_Table::init()
             cin >> priority;
 
             MFQS_Proc proc(pid, burst, arrival, priority);
+            queue.push(proc);
+            /*
+	    queue.push(toast1);
+	    queue.push(toast2);
+	    queue.push(toast3);
+	    queue.push(toast4);
+            
             queues[0].push(proc);
+            */
         }
+
+        while (!queue.empty())
+	{
+		MFQS_Proc p = queue.top();
+		p.print_attributes();
+                //cout << "bread " << t.bread << " butter " << t.butter << std::endl;
+		queue.pop();
+	}
 
     }
     else

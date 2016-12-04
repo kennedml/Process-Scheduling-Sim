@@ -9,17 +9,6 @@
 
 class MFQS_Table : public Proc_Table
 {
-    /*
-    struct MFQS_Compare
-    {
-        bool operator()(const MFQS_Proc &p1, const MFQS_Proc &p2) const
-        {
-            int p1_value = 0;
-            int p2_value = 1;
-            return p1_value < p2_value;
-        }
-    };
-    */
 
     
   protected:
