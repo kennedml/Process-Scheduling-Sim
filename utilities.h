@@ -8,7 +8,9 @@
 #include <fstream>
 #include <sstream>
 #include "mfqs_table.h"
-#include "proc.h"
+#include "rts_proc.h"
+#include "mfqs_proc.h"
+#include "whs_proc.h"
 
 using namespace std; 
 
