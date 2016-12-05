@@ -23,6 +23,10 @@ void Proc_Handler::run(){
     {
         //RTS
         cout << "RTS" << endl;
+        string file;
+        cout << "Path to file: ";
+        cin >> file;
+        import_file(file);
         break;
     }
     case 3:

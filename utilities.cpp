@@ -57,3 +57,29 @@ bool from_file(){
   scanf("%d", &file_manual);
   return file_manual;
 }
+
+vector<Proc> import_file(string path){
+  ifstream file;
+  file.open(path);
+  string process;
+  string str;
+  vector<Proc> processes;
+  int pid, burst, arrival, priority, deadline, io;
+
+  getline(file,process);
+  while(getline(file,process)){
+    istringstream ss(process);
+    ss >> pid;
+    ss >> burst;
+    ss >> arrival;
+    ss >> priority;
+    ss >> deadline;
+    ss >> io;
+    Proc temp(pid, burst, arrival, priority, deadline, io);
+    temp.print_proc();
+    processes.push_back(temp);
+  }
+  file.close();
+
+  return processes;
+}

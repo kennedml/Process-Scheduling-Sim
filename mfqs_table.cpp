@@ -18,7 +18,7 @@ void MFQS_Table::demote_process()
 void MFQS_Table::init()
 {
     // Create array of queues
-    queue<MFQS_Proc> queues[num_queues];
+    queue<MFQS_Proc>* queues = new queue<MFQS_Proc>[num_queues];
     
     for(int i = 0; i < num_queues; i++)
     {
