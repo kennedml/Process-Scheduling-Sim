@@ -18,7 +18,7 @@ void MFQS_Table::demote_process()
 void MFQS_Table::run()
 {
     // Create array of queues
-    queue<MFQS_Proc> queues[num_queues];
+    queue<MFQS_Proc>* queues = new queue<MFQS_Proc>[num_queues];
     
     for(int i = 0; i < num_queues; i++)
     {
@@ -32,7 +32,7 @@ void MFQS_Table::run()
     cout << endl << "Choose whether to use a file or to manually enter your information: ";
 
     int input;
-    scanf("%d", &input);
+    cin >> input;
     if(input == 1)
     {
         // TODO - Include head from file that has this function(on different laptop)

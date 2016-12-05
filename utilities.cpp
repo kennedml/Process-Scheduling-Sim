@@ -12,7 +12,7 @@ int get_table_type()
   cout << endl << "Choose your algorithm: ";
 
   
-  scanf("%d", &table_type);
+  cin >> table_type;
 
   return table_type;
 
@@ -25,7 +25,7 @@ int get_table_type()
     case 1:
     {  
         cout << "Enter number of queues from 1-5" << endl;
-        scanf("%d", &num_queues);
+        cin >> num_queues;
         MFQS_Table table(num_queues);
         table.init();
         break;
@@ -54,6 +54,39 @@ bool from_file(){
   cout << "1) Processes from file" << endl;
 
   int file_manual;
-  scanf("%d", &file_manual);
+  cin >> file_manual;
   return file_manual;
+}
+
+vector<Proc> import_file(string path, string type){
+  ifstream file;
+  file.open(path);
+  string process;
+  string str;
+  vector<Proc> processes;
+  int pid, burst, arrival, priority, deadline, io;
+  bool rts = type == "rts" ? true : false;
+
+  getline(file,process);
+  while(getline(file,process)){
+    istringstream ss(process);
+
+    ss >> pid >> burst >> arrival >> priority >> deadline >> io;
+
+    if (deadline < 0 && rts){
+      DEBUG_PRINT(("!! Skipping Process Due To Negative Deadline On RTS !!\n"));
+      DEBUG_PRINT(("SKIPPED: %s\n", process.c_str()));
+      continue;
+    }
+    else{
+      Proc temp(pid, burst, arrival, priority, deadline, io);
+      #ifdef DEBUG
+        temp.print_proc();
+      #endif
+      processes.push_back(temp);
+    }
+  }
+  file.close();
+
+  return processes;
 }
