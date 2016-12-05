@@ -16,7 +16,7 @@ void Proc_Handler::run(){
         cout << "Enter number of queues from 1-5" << endl;
         scanf("%d", &num_queues);
         MFQS_Table table(num_queues);
-        table.init();
+        table.run();
         break;
     }
     case 2:

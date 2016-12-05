@@ -32,7 +32,7 @@ class MFQS_Table : public Proc_Table
     int get_aging_interval(){ return aging_interval; }
     void set_aging_interval(int n){ aging_interval = n; }
 
-    void init();
+    void run();
 
     void print_attributes();
     

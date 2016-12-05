@@ -15,7 +15,7 @@ void MFQS_Table::demote_process()
 }
 */
 
-void MFQS_Table::init()
+void MFQS_Table::run()
 {
     // Create array of queues
     queue<MFQS_Proc> queues[num_queues];
@@ -70,12 +70,34 @@ void MFQS_Table::init()
             queue.push(proc);
         }
 
+        int clock = 0;
+        int max =  500;
+
+        for(int i = 0; i < num_queues; i++)
+        {
+
+        }
+        while(clock < max)
+        {
+	    MFQS_Proc p = queue.top();
+            if(p.get_arrival() <= clock)
+            {
+                queue.pop();
+            }
+            else
+            {
+            }
+            clock++;
+        }
+
+        /*
         while (!queue.empty())
 	{
 		MFQS_Proc p = queue.top();
 		p.print_attributes();
 		queue.pop();
 	}
+        */
 
     }
     else
