@@ -10,10 +10,6 @@ Proc::Proc(int pid, int burst, int arrival, int priority, int deadline, int io) 
 }
 
 void Proc::print_proc(){
-  cout << "PID: " << pid << endl;
-  cout << "Burst: " << burst << endl;
-  cout << "Arrival: " << arrival << endl;
-  cout << "Priority: " << priority << endl;
-  cout << "Deadline: " << deadline << endl;
-  cout << "IO: " << io << endl;
+  cout << "PID\tBURST\tARRIVAL\tPRIORITY\tDEADLINE\tIO" << endl;
+  cout << pid << "\t" << burst << "\t" << arrival << "\t" << priority << "\t\t" << deadline << "\t\t" << io << endl;
 }

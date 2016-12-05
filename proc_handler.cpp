@@ -14,7 +14,7 @@ void Proc_Handler::run(){
     { 
         int num_queues;
         cout << "Enter number of queues from 1-5" << endl;
-        scanf("%d", &num_queues);
+        cin >> num_queues;
         MFQS_Table table(num_queues);
         table.init();
         break;
@@ -26,7 +26,7 @@ void Proc_Handler::run(){
         string file;
         cout << "Path to file: ";
         cin >> file;
-        import_file(file);
+        import_file(file, "rts");
         break;
     }
     case 3:

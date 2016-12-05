@@ -12,9 +12,16 @@
 
 using namespace std; 
 
+#define DEBUG
+
+#ifdef DEBUG
+# define DEBUG_PRINT(x) printf x
+#else
+# define DEBUG_PRINT(x) do {} while (0)
+#endif
 
 int get_table_type();
 bool from_file();
-vector<Proc> import_file(string path);
+vector<Proc> import_file(string path, string type);
 
 #endif

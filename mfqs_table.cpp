@@ -32,7 +32,7 @@ void MFQS_Table::init()
     cout << endl << "Choose whether to use a file or to manually enter your information: ";
 
     int input;
-    scanf("%d", &input);
+    cin >> input;
     if(input == 1)
     {
         // TODO - Include head from file that has this function(on different laptop)
