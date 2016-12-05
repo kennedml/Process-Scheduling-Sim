@@ -73,13 +73,23 @@ vector<Proc> import_file(string path, string type){
 
     ss >> pid >> burst >> arrival >> priority >> deadline >> io;
 
-    if (deadline < 0 && rts){
-      DEBUG_PRINT(("!! Skipping Process Due To Negative Deadline On RTS !!\n"));
-      DEBUG_PRINT(("SKIPPED: %s\n", process.c_str()));
-      continue;
+    if (rts){
+      if (deadline < 0){
+        DEBUG_PRINT(("!! Skipping Process Due To Negative Deadline On RTS !!\n"));
+        DEBUG_PRINT(("SKIPPED: %s\n", process.c_str()));
+        continue;
+      }
+      else {
+        RTS_Proc temp(pid, burst, arrival, priority, deadline);  
+        #ifdef DEBUG
+          temp.print_proc();
+        #endif
+        processes.push_back(temp);
+      }
     }
     else{
-      Proc temp(pid, burst, arrival, priority, deadline, io);
+      /* Generic Process */
+      Proc temp(pid, burst, arrival, priority);
       #ifdef DEBUG
         temp.print_proc();
       #endif

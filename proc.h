@@ -17,7 +17,7 @@ class Proc
     int io;
 
   public:
-    Proc(int pid, int burst, int arrival, int priority, int deadline, int io);
+    Proc(int pid, int burst, int arrival, int priority);
     ~Proc(){}
 
     int get_pid() const { return pid; }
