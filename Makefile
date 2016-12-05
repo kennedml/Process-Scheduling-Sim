@@ -1,5 +1,5 @@
 CPP=g++
-CFLAGS=-g -Wall
+CFLAGS=-std=c++11 -g -Wall
 LDFLAGS=
 SOURCES=scheduler.cpp proc_handler.cpp utilities.cpp mfqs_table.cpp mfqs_proc.cpp proc.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
