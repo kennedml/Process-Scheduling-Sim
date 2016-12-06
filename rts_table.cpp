@@ -19,9 +19,7 @@ void RTS_Table::run(string path){
     if (!dead_queue.empty()){
       RTS_Proc dead = dead_queue.top();
 
-      int burst         = dead.get_burst();
-      int pid           = dead.get_pid();
-      int deadline      = dead.get_deadline();
+      int pid = dead.get_pid();
 
       cout << "Proc #" << pid << endl;
 
@@ -31,12 +29,13 @@ void RTS_Table::run(string path){
       }
 
       dead.decrease_burst(1);
-      if (burst <= 0){
+
+      if (dead.get_burst() <= 0){
         cout << "Proc #" << pid << " finished in time." << endl;
         cout << "\tStarting time: " << dead.get_starting_time() << endl;
         cout << "\tEnding time: " << clock << endl;
         dead_queue.pop();
-        break;
+        continue;
       }
     }
     clock++;

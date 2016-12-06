@@ -31,7 +31,7 @@ class Proc
     int get_pid() const { return pid; }
     int get_burst() const { return burst; }
     int get_arrival() const { return arrival; }
-    int get_priorty() const { return priority; }
+    int get_priority() const { return priority; }
 
     void decrease_burst(int n){ burst = burst - n;}
     void set_burst(int n){ burst = n; } 
