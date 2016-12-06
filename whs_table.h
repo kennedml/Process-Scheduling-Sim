@@ -11,6 +11,9 @@ class WHS_Table : public Proc_Table
   public:
     WHS_Table(){}
     ~WHS_Table(){}
+
+    void run();
+
 };
 
 #endif

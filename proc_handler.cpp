@@ -32,7 +32,8 @@ void Proc_Handler::run(){
     case 3:
     {
         //WHS
-        cout << "WHS" << endl;
+        WHS_Table table();
+        table.run();
         break;
     }
   }
