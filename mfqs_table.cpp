@@ -168,10 +168,12 @@ void MFQS_Table::run()
                 // Burst shorter than time quantum - move clock forward value of burst & remove proc
                 if(burst - time_quantum < 0 && i != num_queues-1)
                 {
-                    cout << "Q" << i+1 << ": Proc #" << pid << " finished in less than time quantum" << endl;
-                    cout << "\t" << "Starting time: " << clock << endl;
+                    #ifdef DEBUG
+                      cout << "Q" << i+1 << ": Proc #" << pid << " finished in less than time quantum" << endl;
+                      cout << "\t" << "Starting time: " << clock << endl;
+                      cout << "\t" << "Ending time: " << clock+burst << endl;
+                    #endif
                     clock = clock + burst;
-                    cout << "\t" << "Ending time: " << clock << endl;
                     queues[i].pop();
                     break;
                 }
@@ -179,10 +181,12 @@ void MFQS_Table::run()
                 // Burst longer than time quantum - needs to be demoted
                 else if(burst - time_quantum > 0 && i != num_queues-1)
                 {
-                    cout << "Q" << i+1 << ": Proc #" << pid << " did not complete process. Demoting" << endl;
-                    cout << "\t" << "Starting time: " << clock << endl;
-                    clock = clock + time_quantum;
-                    cout << "\t" << "Ending time: " << clock << endl;
+                    #ifdef DEBUG
+                      cout << "Q" << i+1 << ": Proc #" << pid << " did not complete process. Demoting" << endl;
+                      cout << "\t" << "Starting time: " << clock << endl;
+                      cout << "\t" << "Ending time: " << clock+time_quantum << endl;
+                    #endif
+                    clock = clock+time_quantum;
                     queues[i].pop();
                     p.decrease_burst(time_quantum);
                     if (i > 1) {
@@ -193,10 +197,12 @@ void MFQS_Table::run()
                 }
                 else if (burst - time_quantum > 0 && i == num_queues -1)
                 {
-                    cout << "Q" << i+1 << ": Proc #" << pid << " in last queue finished remainder of burst: " << burst << endl;
-                    cout << "\t" << "Starting time: " << clock << endl;
+                    #ifdef DEBUG
+                      cout << "Q" << i+1 << ": Proc #" << pid << " in last queue finished remainder of burst: " << burst << endl;
+                      cout << "\t" << "Starting time: " << clock << endl;
+                      cout << "\t" << "Ending time: " << clock+burst << endl;
+                    #endif
                     clock = clock + burst;
-                    cout << "\t" << "Ending time: " << clock << endl;
                     queues[i].pop();
                     break;
                 }
@@ -204,10 +210,12 @@ void MFQS_Table::run()
                 // Burst equal to time quantum - remove proc & move clock forward value of time quantum
                 else
                 {
-                    cout << "Q" << i+1 << ": Proc #" << pid << " completed in the allotted space" << endl;
-                    cout << "\t" << "Starting time: " << clock << endl;
+                    #ifdef DEBUG
+                      cout << "Q" << i+1 << ": Proc #" << pid << " completed in the allotted space" << endl;
+                      cout << "\t" << "Starting time: " << clock << endl;
+                      cout << "\t" << "Ending time: " << clock+time_quantum << endl;
+                    #endif
                     clock = clock + time_quantum;
-                    cout << "\t" << "Ending time: " << clock << endl;
                     queues[i].pop();
                     break;
                 }

@@ -8,7 +8,7 @@ using namespace std;
 
 class Proc
 {
-  protected:
+  private:
     int pid;
     int burst;
     int arrival;
@@ -33,7 +33,7 @@ class Proc
     int get_arrival() const { return arrival; }
     int get_priority() const { return priority; }
 
-    void decrease_burst(int n){ burst = burst - n;}
+    void decrease_burst(int n){ burst -= n;}
     void set_burst(int n){ burst = n; } 
     void print_proc();
     
