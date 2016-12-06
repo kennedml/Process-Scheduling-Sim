@@ -52,7 +52,7 @@ void WHS_Table::run()
     int input;
     cin >> input;
     
-    int pid, burst, arrival, priority, queue_level, deadline, io;
+    int pid, burst, arrival, priority, deadline, io;
     
     
     if(input == 1)

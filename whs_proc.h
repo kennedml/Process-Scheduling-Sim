@@ -26,8 +26,9 @@ class WHS_Proc : public Proc
     struct WHS_Arrival_Compare {
       bool operator()(const WHS_Proc &p1, const WHS_Proc &p2) const {
         if(p1.get_arrival() == p2.get_arrival()) {
-            if(p1.get_priority() == p2.get_priority())
+            if(p1.get_priority() == p2.get_priority()){
                 return p1.get_pid() > p2.get_pid();
+            }
           }
           else {
             return p1.get_arrival() > p2.get_arrival();
@@ -47,12 +48,10 @@ class WHS_Proc : public Proc
     };
   
     void set_current_priority(int n){ current_priority = n; }
-    void set_priority(int n){ priority = n; }
+    void set_io(int n){ io = n; }
     int get_current_priority() const{ return current_priority; }
-    int get_arrival() const{ return arrival; }
-    int get_priority() const{ return priority; }
-    int get_pid() const{ return pid; }
     int get_io() const{ return io; }
+
 };
 
 #endif

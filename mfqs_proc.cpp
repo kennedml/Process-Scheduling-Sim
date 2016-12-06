@@ -2,8 +2,8 @@
 
 void MFQS_Proc::print_attributes()
 {
-    cout << "Pid:  " << pid << endl;
-    cout << "Burst:  " << burst << endl;
-    cout << "Arrival:  " << arrival << endl;
-    cout << "Priority:  " << priority << endl;
+    cout << "Pid:  " << this->get_pid() << endl;
+    cout << "Burst:  " << this->get_burst() << endl;
+    cout << "Arrival:  " << this->get_arrival() << endl;
+    cout << "Priority:  " << this->get_priority() << endl;
 }

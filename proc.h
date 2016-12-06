@@ -8,13 +8,15 @@ using namespace std;
 
 class Proc
 {
-  protected:
+  private:
     int pid;
     int burst;
     int arrival;
     int priority;
     int deadline;
     int io;
+    int turnaround_time;
+    int waiting_time;
 
   public:
     Proc(int pid, int burst, int arrival, int priority);
@@ -32,8 +34,13 @@ class Proc
     int get_burst() const { return burst; }
     int get_arrival() const { return arrival; }
     int get_priority() const { return priority; }
+    int get_turnaround_time() const { return turnaround_time; }
+    int get_waiting_time() const { return waiting_time; }
 
-    void decrease_burst(int n){ burst = burst - n;}
+    void set_waiting_time(int n){ waiting_time = n; }
+    void set_turnaround_time(int n){ turnaround_time = n; }
+    void set_priority(int n){ priority = n; }
+    void decrease_burst(int n){ burst -= n;}
     void set_burst(int n){ burst = n; } 
     void print_proc();
     

@@ -2,7 +2,6 @@
 
 int get_table_type()
 {
-  
   int table_type;
     
   cout << "1) MFQS(Multi-level Feedback Queue Scheduler" << endl;
@@ -11,47 +10,14 @@ int get_table_type()
   cout << "4) Exit Program" << endl;
   cout << endl << "Choose your algorithm: ";
 
-  
   cin >> table_type;
-
   return table_type;
-
-  /*
-  if(table_type == 4)
-    exit(0);
-  //Manual or File
-  
-  switch(table_type){
-    case 1:
-    {  
-        cout << "Enter number of queues from 1-5" << endl;
-        cin >> num_queues;
-        MFQS_Table table(num_queues);
-        table.init();
-        break;
-    }
-    case 2:
-    {
-        //RTS
-        cout << "RTS" << endl;
-        break;
-    }
-    case 3:
-    {
-        //WHS
-        cout << "WHS" << endl;
-        break;
-    }
-    case 4:
-        exit(0);
-  }
-  */
 }
 
 
-bool from_file(){
-  cout << "0) Enter processes manually" << endl;
+int from_file(){
   cout << "1) Processes from file" << endl;
+  cout << "2) Enter processes manually" << endl;
 
   int file_manual;
   cin >> file_manual;

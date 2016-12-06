@@ -16,10 +16,9 @@ class RTS_Table : public Proc_Table
   public:
     RTS_Table(){}
     ~RTS_Table(){}
-    void run(string path);
+    void run();
     arrival_queue import_file(string path);
-    bool all_empty(arrival_queue arr_queue,deadline_queue dead_queue);
-
+    bool all_empty(arrival_queue &arr_queue,deadline_queue &dead_queue);
 };
 
 #endif

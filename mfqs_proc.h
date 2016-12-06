@@ -37,7 +37,7 @@ class MFQS_Proc : public Proc
     int get_demotion_time() const{ return demotion_time; }
     int get_age() const{ return age; }
 
-    void set_age(int n){age += n;}
+    void set_age(int n){age = n;}
     void set_demotion_time(int n){ demotion_time = n; }
 
     void print_attributes();

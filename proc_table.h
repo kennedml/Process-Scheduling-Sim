@@ -20,6 +20,12 @@ class Proc_Table
     void set_num_procs(int n){ num_procs = n; }
     void increment_procs(){ num_procs++; }
     void decrement_procs(){ num_procs--; }
+    void print_averages(const int &total_turnaround, const int &total_waiting, const int &total_procs){
+      cout << "Average waiting time: " << total_waiting / total_procs << endl;
+      cout << "Average turnaround time: " << total_turnaround / total_procs << endl;
+      cout << "Total Processes Scheduled: " << total_procs << endl;
+    }
 };
+
 
 #endif
