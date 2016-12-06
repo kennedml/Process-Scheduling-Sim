@@ -8,10 +8,6 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "mfqs_table.h"
-#include "rts_proc.h"
-#include "mfqs_proc.h"
-#include "whs_proc.h"
 
 using namespace std; 
 
@@ -25,6 +21,5 @@ using namespace std;
 
 int get_table_type();
 bool from_file();
-vector<Proc> import_file(string path, string type);
 
 #endif

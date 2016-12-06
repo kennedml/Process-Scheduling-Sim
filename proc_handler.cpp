@@ -26,7 +26,8 @@ void Proc_Handler::run(){
         string file;
         cout << "Path to file: ";
         cin >> file;
-        import_file(file, "rts");
+        RTS_Table rts_table;
+        rts_table.run(file);
         break;
     }
     case 3:
@@ -37,3 +38,4 @@ void Proc_Handler::run(){
     }
   }
 }
+

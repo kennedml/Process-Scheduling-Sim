@@ -1,7 +1,8 @@
 #ifndef PROC_TABLE_H
 #define PROC_TABLE_H
 
-#include "proc.h"
+#include "utilities.h"
+
 
 class Proc_Table
 {
@@ -19,7 +20,6 @@ class Proc_Table
     void set_num_procs(int n){ num_procs = n; }
     void increment_procs(){ num_procs++; }
     void decrement_procs(){ num_procs--; }
-
 };
 
 #endif
