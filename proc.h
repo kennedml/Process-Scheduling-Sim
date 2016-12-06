@@ -32,6 +32,9 @@ class Proc
     int get_burst() const { return burst; }
     int get_arrival() const { return arrival; }
     int get_priorty() const { return priority; }
+
+    void decrease_burst(int n){ burst = burst - n;}
+    void set_burst(int n){ burst = n; } 
     void print_proc();
     
     struct Compare {
