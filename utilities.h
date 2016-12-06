@@ -7,6 +7,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <string>
 #include "mfqs_table.h"
 #include "rts_proc.h"
 #include "mfqs_proc.h"
@@ -14,7 +15,7 @@
 
 using namespace std; 
 
-#define DEBUG
+//#define DEBUG
 
 #ifdef DEBUG
 # define DEBUG_PRINT(x) printf x

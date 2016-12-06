@@ -14,7 +14,6 @@ class MFQS_Table : public Proc_Table
   protected:
     int num_queues;
     int num_procs;
-    int time_quantum;
     int aging_interval;
   
   public:
@@ -26,16 +25,14 @@ class MFQS_Table : public Proc_Table
 
     int get_num_queues(){return num_queues;}
     void set_num_queues(int n){ num_queues = n;} 
-    int get_time_quantum(){ return time_quantum; }
-    void set_time_quantum(int n){ time_quantum = n; }
 
     int get_aging_interval(){ return aging_interval; }
     void set_aging_interval(int n){ aging_interval = n; }
-
+    void demote_process(MFQS_Proc &proc, vector<priority_queue<MFQS_Proc, vector<MFQS_Proc>, MFQS_Proc::MFQS_Compare> > &queues, int idx);
     void run();
 
     void print_attributes();
-    
+    bool all_empty(vector<priority_queue<MFQS_Proc, vector<MFQS_Proc>, MFQS_Proc::MFQS_Compare> > &queues);
     
     
 
