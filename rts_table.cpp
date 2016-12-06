@@ -10,7 +10,7 @@ void RTS_Table::run(string path){
     RTS_Proc arr = arr_queue.top();
     if (arr.get_arrival() <= clock){
       int slack = arr.get_deadline() - arr.get_arrival() - arr.get_burst();
-      cout << "PID: " << arr.get_pid() << " SLACK: " << slack << endl;
+      cout << "CLOCK: " << clock << " PID: " << arr.get_pid() << " SLACK: " << slack << endl;
       if (slack >= 0){
         dead_queue.push(arr);
         arr_queue.pop();
@@ -21,18 +21,19 @@ void RTS_Table::run(string path){
 
       int pid = dead.get_pid();
 
-      cout << "Proc #" << pid << endl;
-
-      if (dead.get_starting_time() == 0){
-        dead.set_starting_time(clock);
-        cout << "Starting Proc #" << pid << " at " << dead.get_starting_time() << endl;
-      }
-
       dead.decrease_burst(1);
+      cout << "Proc #" << pid << " BURST: " << dead.get_burst() << " CLOCK: " << clock << endl;
+
+      /* if (dead.get_starting_time() == 0){ */
+      /*   dead.set_starting_time(clock); */
+      /*   cout << "Starting Proc #" << pid << " at " << dead.get_starting_time() << endl; */
+      /* } */
+
 
       if (dead.get_burst() <= 0){
         cout << "Proc #" << pid << " finished in time." << endl;
         cout << "\tStarting time: " << dead.get_starting_time() << endl;
+        clock++;
         cout << "\tEnding time: " << clock << endl;
         dead_queue.pop();
         continue;
