@@ -33,8 +33,8 @@ void Proc_Handler::run(){
     case 3:
     {
         //WHS
-        WHS_Table table();
-        table.run();
+        WHS_Table whs_table;
+        whs_table.run();
         break;
     }
   }
