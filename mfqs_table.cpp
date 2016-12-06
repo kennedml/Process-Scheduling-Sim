@@ -33,7 +33,10 @@ void MFQS_Table::demote_process(MFQS_Proc &proc, vector<priority_queue<MFQS_Proc
 
 void MFQS_Table::promote_process(MFQS_Proc &proc, vector<priority_queue<MFQS_Proc, vector<MFQS_Proc>, MFQS_Proc::MFQS_Compare> > &queues,int idx)
 {
+  if(idx > 2 && idx < num_queues-1){
+    cout << "=== PROMOTING #" << proc.get_pid() << " From Q" << idx << " To Q" << idx-1 << " Demotion Time: " << proc.get_demotion_time() << " Current Age: " << proc.get_age() << endl;
     queues[idx-1].push(proc);
+  }
 }
 
 void MFQS_Table::run()
@@ -47,17 +50,15 @@ void MFQS_Table::run()
         
     cout << "Enter the desired aging interval: " << endl;
     cin >> aging_interval;
-    // Get info needed for processes
-    cout << endl << "1) Use a file" << endl;
-    cout << "2) Enter information manually" << endl;
-    cout << endl << "Choose whether to use a file or to manually enter your information: ";
 
-    int input;
-    cin >> input;
+    int input = from_file();
     
     int pid, burst, arrival, priority, queue_level, deadline, io;
     //priority_queue<MFQS_Proc, vector<MFQS_Proc>, MFQS_Proc::MFQS_Compare> queue;
     
+    int total_processes = 0;
+    int total_waiting = 0;
+    int total_turnaround = 0;
     
     if(input == 1)
     {
@@ -85,6 +86,7 @@ void MFQS_Table::run()
                 queues[0].push(proc);
             }
         }
+        total_processes = queues[0].size();
 
     }
     else if(input == 2)
@@ -133,22 +135,6 @@ void MFQS_Table::run()
 
     while(!all_empty(queues))
     {
-        /*cout << "Inside While Clock: " << clock << endl;
-        for(int i = 2; i < num_queues-1; i++){
-            if(!queues[i].empty()){
-                MFQS_Proc k = queues[i].top();
-                cout << "Demo Time: " << k.demotion_time << " Age: " << k.age << endl;
-                if(k.get_demotion_time() + k.get_age() > clock){
-                    promote_process(k,queues,i);
-                    cout << "PROMOTING!!!" << endl;
-                }
-                else{
-                    k.age += aging_interval;
-                }
-            }
-            else
-                continue;
-        }*/
         int time_quantum = base_quantum;
         for(int i = 0; i < num_queues; i++) 
         {
@@ -157,6 +143,21 @@ void MFQS_Table::run()
             MFQS_Proc p;
             if(!queues[i].empty()){
                 p = queues[i].top();
+                /* Promoting Code, so close */
+                /* if (i > 2 && i < num_queues-1){ */
+                /*   queues[i].pop(); */
+                /*   if(p.get_demotion_time() + p.get_age() > clock){ */
+                /*       promote_process(p,queues,i); */
+                /*       /1* cout << "PROMOTING AGE: " << p.get_age() << " + DEMO: " << p.get_demotion_time() << " = " << p.get_age()+p.get_demotion_time() << " Clock: " << clock << endl; *1/ */
+                /*       break; */
+                /*   } */
+                /*   else{ */
+                /*       p.set_age(p.get_age() + aging_interval); */
+                /*       /1* cout << "Proc #" << p.get_pid() << " NEW AGE: " << p.get_age() << endl; *1/ */
+                /*       queues[i].push(p); */
+                /*       break; */
+                /*   } */
+                /* } */
             }
             else{ continue; }
              
@@ -169,11 +170,15 @@ void MFQS_Table::run()
                 if(burst - time_quantum < 0 && i != num_queues-1)
                 {
                     #ifdef DEBUG
-                      cout << "Q" << i+1 << ": Proc #" << pid << " finished in less than time quantum" << endl;
+                      cout << "Q" << i << ": Proc #" << pid << " finished in less than time quantum" << endl;
                       cout << "\t" << "Starting time: " << clock << endl;
                       cout << "\t" << "Ending time: " << clock+burst << endl;
                     #endif
                     clock = clock + burst;
+                    p.set_waiting_time(clock - p.get_arrival());
+                    p.set_turnaround_time((clock+burst)-p.get_arrival());
+                    total_turnaround += p.get_turnaround_time();
+                    total_waiting += p.get_waiting_time();
                     queues[i].pop();
                     break;
                 }
@@ -182,7 +187,7 @@ void MFQS_Table::run()
                 else if(burst - time_quantum > 0 && i != num_queues-1)
                 {
                     #ifdef DEBUG
-                      cout << "Q" << i+1 << ": Proc #" << pid << " did not complete process. Demoting" << endl;
+                      cout << "Q" << i << ": Proc #" << pid << " did not complete process. Demoting" << endl;
                       cout << "\t" << "Starting time: " << clock << endl;
                       cout << "\t" << "Ending time: " << clock+time_quantum << endl;
                     #endif
@@ -190,19 +195,23 @@ void MFQS_Table::run()
                     queues[i].pop();
                     p.decrease_burst(time_quantum);
                     if (i > 1) {
-                        p.demotion_time = clock;
+                        p.set_demotion_time(clock);
                     }
+                    p.set_age(0);
                     demote_process(p, queues, i);
                     break;
                 }
                 else if (burst - time_quantum > 0 && i == num_queues -1)
                 {
                     #ifdef DEBUG
-                      cout << "Q" << i+1 << ": Proc #" << pid << " in last queue finished remainder of burst: " << burst << endl;
+                      cout << "Q" << i << ": Proc #" << pid << " in last queue finished remainder of burst: " << burst << endl;
                       cout << "\t" << "Starting time: " << clock << endl;
                       cout << "\t" << "Ending time: " << clock+burst << endl;
                     #endif
                     clock = clock + burst;
+                    p.set_turnaround_time((clock+time_quantum)-p.get_arrival());
+                    total_turnaround += p.get_turnaround_time();
+                    total_waiting += p.get_waiting_time();
                     queues[i].pop();
                     break;
                 }
@@ -211,11 +220,14 @@ void MFQS_Table::run()
                 else
                 {
                     #ifdef DEBUG
-                      cout << "Q" << i+1 << ": Proc #" << pid << " completed in the allotted space" << endl;
+                      cout << "Q" << i << ": Proc #" << pid << " completed in the allotted space" << endl;
                       cout << "\t" << "Starting time: " << clock << endl;
                       cout << "\t" << "Ending time: " << clock+time_quantum << endl;
                     #endif
                     clock = clock + time_quantum;
+                    p.set_turnaround_time((clock+time_quantum)-p.get_arrival());
+                    total_turnaround += p.get_turnaround_time();
+                    total_waiting += p.get_waiting_time();
                     queues[i].pop();
                     break;
                 }
@@ -228,6 +240,6 @@ void MFQS_Table::run()
             }
         }
     }
+    Proc_Table::print_averages(total_turnaround, total_waiting, total_processes);
     exit(0);
 }
-

@@ -8,33 +8,24 @@ void Proc_Handler::run(){
     exit(0);
   //Manual or File
   
-  switch(table_type)
-  {
-    case 1:
-    { 
-        int num_queues;
-        cout << "Enter number of queues from 1-5" << endl;
-        cin >> num_queues;
-        MFQS_Table table(num_queues);
-        table.run();
-        break;
+  switch(table_type) {
+    case 1: { 
+      int num_queues;
+      cout << "Enter number of queues from 1-5" << endl;
+      cin >> num_queues;
+      MFQS_Table table(num_queues);
+      table.run();
+      break;
     }
-    case 2:
-    {
-        //RTS
-        cout << "RTS" << endl;
-        string file;
-        cout << "Path to file: ";
-        cin >> file;
-        RTS_Table rts_table;
-        rts_table.run(file);
-        break;
+    case 2: {
+      RTS_Table rts_table;
+      rts_table.run();
+      break;
     }
-    case 3:
-    {
-        //WHS
-        cout << "WHS" << endl;
-        break;
+    case 3: {
+      //WHS
+      cout << "WHS" << endl;
+      break;
     }
   }
 }

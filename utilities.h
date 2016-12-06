@@ -11,7 +11,7 @@
 
 using namespace std; 
 
-/* #define DEBUG */
+#define DEBUG
 
 #ifdef DEBUG
 # define DEBUG_PRINT(x) printf x
@@ -20,6 +20,6 @@ using namespace std;
 #endif
 
 int get_table_type();
-bool from_file();
+int from_file();
 
 #endif
