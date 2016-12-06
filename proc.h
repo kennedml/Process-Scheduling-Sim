@@ -18,6 +18,14 @@ class Proc
 
   public:
     Proc(int pid, int burst, int arrival, int priority);
+    Proc(){
+        pid = 0;
+        burst = 0;
+        arrival = 0;
+        priority = 0;
+        deadline = 0;
+        io = 0;
+    }
     ~Proc(){}
 
     int get_pid() const { return pid; }

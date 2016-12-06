@@ -31,6 +31,11 @@ void MFQS_Table::demote_process(MFQS_Proc &proc, vector<priority_queue<MFQS_Proc
         queues[idx+1].push(proc);
 }
 
+void MFQS_Table::promote_process(MFQS_Proc &proc, vector<priority_queue<MFQS_Proc, vector<MFQS_Proc>, MFQS_Proc::MFQS_Compare> > &queues,int idx)
+{
+    queues[idx-1].push(proc);
+}
+
 void MFQS_Table::run()
 {
     //vector<priority_queue> queues;
@@ -128,6 +133,22 @@ void MFQS_Table::run()
 
     while(!all_empty(queues))
     {
+        /*cout << "Inside While Clock: " << clock << endl;
+        for(int i = 2; i < num_queues-1; i++){
+            if(!queues[i].empty()){
+                MFQS_Proc k = queues[i].top();
+                cout << "Demo Time: " << k.demotion_time << " Age: " << k.age << endl;
+                if(k.get_demotion_time() + k.get_age() > clock){
+                    promote_process(k,queues,i);
+                    cout << "PROMOTING!!!" << endl;
+                }
+                else{
+                    k.age += aging_interval;
+                }
+            }
+            else
+                continue;
+        }*/
         int time_quantum = base_quantum;
         for(int i = 0; i < num_queues; i++) 
         {
@@ -138,13 +159,12 @@ void MFQS_Table::run()
                 p = queues[i].top();
             }
             else{ continue; }
-                
-
+             
             if(p.get_arrival() <= clock)
             {
                 int burst = p.get_burst();
                 int pid = p.get_pid();
-                
+
                 // Burst shorter than time quantum - move clock forward value of burst & remove proc
                 if(burst - time_quantum < 0 && i != num_queues-1)
                 {
@@ -165,8 +185,9 @@ void MFQS_Table::run()
                     cout << "\t" << "Ending time: " << clock << endl;
                     queues[i].pop();
                     p.decrease_burst(time_quantum);
-                    if (i > 1) 
-                        p.set_demotion_time(clock);
+                    if (i > 1) {
+                        p.demotion_time = clock;
+                    }
                     demote_process(p, queues, i);
                     break;
                 }
