@@ -33,6 +33,16 @@ class Proc
     int get_arrival() const { return arrival; }
     int get_priorty() const { return priority; }
     void print_proc();
+    
+    struct Compare {
+      bool operator()(const Proc &p1, const Proc &p2) const {
+        if(p1.arrival == p2.arrival) {
+          return p1.pid > p2.pid;
+        } else {
+          return p1.arrival < p2.arrival;
+        }
+      }
+    };
 };
 
 #endif
