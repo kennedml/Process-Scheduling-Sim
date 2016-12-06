@@ -29,6 +29,8 @@ class WHS_Proc : public Proc
             if(p1.get_priority() == p2.get_priority()){
                 return p1.get_pid() > p2.get_pid();
             }
+            else
+                return p1.get_priority() < p2.get_priority();
           }
           else {
             return p1.get_arrival() > p2.get_arrival();
