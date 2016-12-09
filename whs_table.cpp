@@ -53,6 +53,9 @@ void WHS_Table::run()
     cin >> input;
     
     int pid, burst, arrival, priority, deadline, io;
+    int total_procs = 0;
+    int total_waiting = 0;
+    int total_turnaround = 0;
     
     
     if(input == 1)
@@ -61,7 +64,7 @@ void WHS_Table::run()
         string path;
         cin >> path;
         ifstream file;
-        file.open(path);
+        file.open(path.c_str());
         string process;
         string str;
         vector<WHS_Proc> processes;
@@ -80,6 +83,7 @@ void WHS_Table::run()
                 WHS_Proc proc(pid, burst, arrival, priority, 0, priority);
                 cout << "Pushing Proc" << endl;
                 arrivals.push(proc);
+                total_procs++;
                 
                 /*if(priority >=50)
                     high_band.push(proc);
@@ -237,6 +241,8 @@ void WHS_Table::run()
                 cout << "\t" << "Starting time: " << clock << endl;
                 clock = clock + time_quantum;
                 cout << "\t" << "Ending time: " << clock << endl;
+                total_waiting += clock - p.get_arrival() - p.get_burst();
+                total_turnaround += clock - p.get_arrival();
                 low_band.pop();
                 continue;
             }
@@ -251,97 +257,8 @@ void WHS_Table::run()
         cout << "HIGH BAND SZ: " << high_band.size() << endl;
         cout << "LOW BAND SZ: " << low_band.size() << endl << endl;
         clock++;
-        
-        
-        /*
-        if(!high_band.empty())
-        {
-            cout << "ENTERING HIGH BAND" << endl;
-            WHS_Proc p;
-            p = high_band.top();
-            if(p.get_arrival() < clock)
-            {
-                cout << "RUNNING PROC" << endl;
-                // Time quantum is greater than burst
-                if(p.get_burst() - time_quantum < 0)
-                {
-                    cout << "High Band" << ": Proc #" << pid << " finished in less than time quantum" << endl;
-                    cout << "\t" << "Starting time: " << clock << endl;
-                    clock = clock + p.get_burst();
-                    cout << "\t" << "Starting time: " << clock << endl;
-                    high_band.pop();
-                    continue;
-                }
-                // Burst is greater than time quantum. Run for TQ then demote.
-                else if(p.get_burst() - time_quantum > 0)
-                {
-                    cout << "Demoting Proc #" << pid << endl;
-                    high_band.pop();
-                    p.decrease_burst(time_quantum);
-                    clock = clock + p.get_burst();
-                    //
-                    //if (i > 1) {
-                    //    p.demotion_time = clock;
-                    //}
-                    //
-                    demote_hb_process(p, high_band, time_quantum);
-                    continue;
-                }
-                else if(p.get_burst() - time_quantum == 0)
-                {
-                    cout << "High band: Proc #" << pid << "finished exactly in the time quantum." << endl;
-                    high_band.pop();
-                    clock = clock + time_quantum;
-                    continue;
-                }
-            }
-            else
-                cout << "NO PROCESS AT " << clock << endl;
-                clock++;
-        }
-        // If not do the low band
-        else
-        {
-            cout << "ENTERING LOW BAND" << endl;
-            WHS_Proc p;
-            p = low_band.top();
-            if(p.get_arrival() < clock)
-            {
-                cout << "RUNNING PROCESS" << endl;
-                // Time quantum is greater than burst
-                if(p.get_burst() - time_quantum < 0)
-                {
-                    cout << "Low Band" << ": Proc #" << pid << " finished in less than time quantum" << endl;
-                    clock = clock + p.get_burst();
-                    low_band.pop();
-                    continue;
-                }
-                // Burst is greater than time quantum. Run for TQ then demote.
-                else if(p.get_burst() - time_quantum > 0)
-                {
-                    low_band.pop();
-                    p.decrease_burst(time_quantum);
-                    clock = clock + p.get_burst();
-                    demote_lb_process(p, low_band,time_quantum);
-                    //if (i > 1) {
-                    //    p.demotion_time = clock;
-                    //}
-                    //demote_process(p, queues, i);
-                    //
-                    continue;
-                }
-                else if(p.get_burst() - time_quantum == 0)
-                {
-                    cout << "Low band: Proc #" << pid << "finished exactly in the time quantum." << endl;
-                    low_band.pop();
-                    clock = clock + time_quantum;
-                    continue;
-                }
-            }
-            else
-                clock++;
-            
-        }
-    */
     }
+
+    Proc_Table::print_averages(total_turnaround, total_waiting,total_procs);
+
 }

@@ -56,9 +56,9 @@ void MFQS_Table::run()
     int pid, burst, arrival, priority, deadline, io;
     //priority_queue<MFQS_Proc, vector<MFQS_Proc>, MFQS_Proc::MFQS_Compare> queue;
     
-    int total_processes = 0;
-    int total_waiting = 0;
-    int total_turnaround = 0;
+    double total_processes = 0;
+    double total_waiting = 0;
+    double total_turnaround = 0;
     
     if(input == 1)
     {

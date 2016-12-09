@@ -8,16 +8,19 @@ class RTS_Proc : public Proc
   private:
     int deadline;
     int starting_time;
+    int starting_burst;
 
   public:
     RTS_Proc(int in_pid, int in_burst, int in_arrival, int in_priority, int in_deadline) 
       : Proc(in_pid, in_burst, in_arrival, in_priority), deadline(in_deadline){
       starting_time = 0; 
+      starting_burst = in_burst;
       }
     ~RTS_Proc(){}
 
     int get_deadline() const{ return deadline; }
     int get_starting_time() const{ return starting_time; } 
+    int get_starting_burst() const{ return starting_burst; } 
 
     void set_starting_time(int n){ starting_time = n; } 
 

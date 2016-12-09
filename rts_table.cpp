@@ -57,9 +57,10 @@ void RTS_Table::run(){
     exit(0);
   }
 
-  int total_procs = arr_queue.size();
-  int total_turnaround = 0;
-  int total_waiting = 0;
+  double total_procs = arr_queue.size();
+  double total_turnaround = 0;
+  double total_waiting = 0;
+  vector<RTS_Proc> failed;
 
   while(!all_empty(arr_queue, dead_queue)){
     if (!arr_queue.empty()){
@@ -74,6 +75,7 @@ void RTS_Table::run(){
           arr_queue.pop();
         }else{
           cout << "=== RTS Process Rejected #" << arr.get_pid() << endl;
+          failed.push_back(arr);
           if (hard){
               cout << "RTS Hard was selected, Process Rejected caused failure" << endl;
               exit(1);
@@ -100,12 +102,12 @@ void RTS_Table::run(){
 
       if (dead.get_burst() <= 0){
         clock += dead.get_burst();
-#ifdef DEBUG
         cout << "Proc #" << pid << " finished in time." << endl;
         cout << "\tStarting time: " << dead.get_starting_time() << endl;
         cout << "\tEnding time: " << clock << endl;
-#endif
+
         total_turnaround += clock-dead.get_arrival();
+        total_waiting += clock - dead.get_arrival() - dead.get_starting_burst();
         continue;
       }else{
         dead.decrease_burst(1);
@@ -113,9 +115,17 @@ void RTS_Table::run(){
       }
     }
     clock++;
-    total_waiting++;
   }
   Proc_Table::print_averages(total_turnaround, total_waiting, total_procs);
+  if (!failed.empty()){
+      cout << "Processes that failed" << endl;
+      while(!failed.empty()){
+          RTS_Proc p = failed.back();
+          failed.pop_back();
+          cout << "P" << p.get_pid() << ", ";
+      }
+      cout << endl;
+  }
 }
 
 arrival_queue RTS_Table::import_file(string path){
@@ -136,7 +146,8 @@ arrival_queue RTS_Table::import_file(string path){
     ss >> pid >> burst >> arrival >> priority >> deadline >> io;
 
     if (deadline < 0 || burst < 0 || arrival < 0 || priority < 0 || io < 0){
-      DEBUG_PRINT(("=== CLEANED:\t%s\n", process.c_str()));
+      /* DEBUG_PRINT(("=== CLEANED:\t%s\n", process.c_str())); */
+      cout << "=== CLEANED:\t" << process << endl;
       sanitized++;
       continue;
     }
@@ -149,7 +160,8 @@ arrival_queue RTS_Table::import_file(string path){
     }
   }
   file.close();
-  DEBUG_PRINT(("\nSanitized %d Processes Due To Negative Values\n", sanitized));
+  /* DEBUG_PRINT(("\nSanitized %d Processes Due To Negative Values\n", sanitized)); */
+  cout << "Sanitized " << sanitized << " Processes from input due to negative values!" << endl;
 
   return queue;
 }
