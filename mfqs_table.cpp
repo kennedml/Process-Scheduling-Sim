@@ -66,7 +66,7 @@ void MFQS_Table::run()
         string path;
         cin >> path;
         ifstream file;
-        file.open(path);
+        file.open(path.c_str());
         string process;
         string str;
         vector<MFQS_Proc> processes;
@@ -173,10 +173,8 @@ void MFQS_Table::run()
                       cout << "\t" << "Ending time: " << clock+burst << endl;
                     #endif
                     clock = clock + burst;
-                    p.set_waiting_time(clock - p.get_arrival());
-                    p.set_turnaround_time((clock+burst)-p.get_arrival());
-                    total_turnaround += p.get_turnaround_time();
-                    total_waiting += p.get_waiting_time();
+                    total_turnaround += (clock+burst)-p.get_arrival();
+                    total_waiting += clock - p.get_arrival();
                     queues[i].pop();
                     break;
                 }
@@ -207,9 +205,8 @@ void MFQS_Table::run()
                       cout << "\t" << "Ending time: " << clock+burst << endl;
                     #endif
                     clock = clock + burst;
-                    p.set_turnaround_time((clock+time_quantum)-p.get_arrival());
-                    total_turnaround += p.get_turnaround_time();
-                    total_waiting += p.get_waiting_time();
+                    total_turnaround += (clock+burst)-p.get_arrival();
+                    total_waiting += clock - p.get_arrival();
                     queues[i].pop();
                     break;
                 }
@@ -223,9 +220,8 @@ void MFQS_Table::run()
                       cout << "\t" << "Ending time: " << clock+time_quantum << endl;
                     #endif
                     clock = clock + time_quantum;
-                    p.set_turnaround_time((clock+time_quantum)-p.get_arrival());
-                    total_turnaround += p.get_turnaround_time();
-                    total_waiting += p.get_waiting_time();
+                    total_turnaround += (clock+burst)-p.get_arrival();
+                    total_waiting += clock - p.get_arrival();
                     queues[i].pop();
                     break;
                 }

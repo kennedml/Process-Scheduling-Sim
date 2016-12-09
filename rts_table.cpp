@@ -5,6 +5,11 @@ void RTS_Table::run(){
   // Get info needed for processes
   int pid, burst, arrival, priority,deadline;
 
+  int hard;
+  cout << "Hard or Soft RTS?" << endl;
+  cout << "1)Soft\n2)Hard" << endl;
+  cin >> hard;
+
   int input = from_file();
   arrival_queue arr_queue;
   deadline_queue dead_queue;
@@ -69,6 +74,10 @@ void RTS_Table::run(){
           arr_queue.pop();
         }else{
           cout << "=== RTS Process Rejected #" << arr.get_pid() << endl;
+          if (hard){
+              cout << "RTS Hard was selected, Process Rejected caused failure" << endl;
+              exit(1);
+          }
           total_procs--;
           arr.print_proc();
           arr_queue.pop();
@@ -111,7 +120,7 @@ void RTS_Table::run(){
 
 arrival_queue RTS_Table::import_file(string path){
   ifstream file;
-  file.open(path);
+  file.open(path.c_str());
   string process;
   string str;
   int pid, burst, arrival, priority, deadline, io;
